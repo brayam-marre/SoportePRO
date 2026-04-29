@@ -115,7 +115,7 @@ function Show-BatteryInfo {
                 7 = 'Cargando y bajo'; 8 = 'Cargando y critico'
                 9 = 'Desconocido'; 10 = 'Parcialmente cargado'
             }
-            $statusText = $statusMap[[int]$bat.BatteryStatus]
+            $statusText = if ($statusMap.ContainsKey([int]$bat.BatteryStatus)) { $statusMap[[int]$bat.BatteryStatus] } else { "Estado $($bat.BatteryStatus)" }
 
             Write-Host "  Nombre          : $($bat.Name)"
             Write-Host "  Estado          : $statusText"

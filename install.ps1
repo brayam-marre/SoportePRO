@@ -21,7 +21,7 @@ Write-Host "   ___) | (_) | |_) | (_) | |  | ||  __/  __/|  _ <| |_| |" -Foregro
 Write-Host "  |____/ \___/| .__/ \___/|_|   \__\___|_|   |_| \_\\___/ " -ForegroundColor Cyan
 Write-Host "              |_|" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "  Herramienta de Soporte Tecnico Profesional  v1.0.0" -ForegroundColor DarkCyan
+Write-Host "  Herramienta de Soporte Tecnico Profesional  v2.0.0" -ForegroundColor DarkCyan
 Write-Host ""
 Write-Host "  $('-' * 60)" -ForegroundColor DarkGray
 Write-Host ""

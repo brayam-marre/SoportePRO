@@ -100,6 +100,7 @@ function Invoke-NetworkReset {
     netsh int tcp reset 2>&1 | Out-Null
     Write-Host "  [  OK  ] " -ForegroundColor Green -NoNewline; Write-Host "TCP reiniciado"
 
+    Write-Host "  [ WARN ] " -ForegroundColor Yellow -NoNewline; Write-Host "El Firewall sera restablecido a valores predeterminados (se perderan reglas personalizadas)"
     netsh advfirewall reset 2>&1 | Out-Null
     Write-Host "  [  OK  ] " -ForegroundColor Green -NoNewline; Write-Host "Firewall reiniciado a configuracion predeterminada"
 
@@ -141,6 +142,8 @@ function Invoke-WUClean {
     $services | ForEach-Object { Stop-Service -Name $_ -Force -ErrorAction SilentlyContinue }
     Write-Host "  [  OK  ] " -ForegroundColor Green -NoNewline; Write-Host "Servicios de Windows Update detenidos"
 
+    Remove-Item "C:\Windows\SoftwareDistribution.old"  -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item "C:\Windows\System32\catroot2.old"     -Recurse -Force -ErrorAction SilentlyContinue
     Rename-Item "C:\Windows\SoftwareDistribution"   "SoftwareDistribution.old"   -ErrorAction SilentlyContinue
     Rename-Item "C:\Windows\System32\catroot2"       "catroot2.old"               -ErrorAction SilentlyContinue
     Write-Host "  [  OK  ] " -ForegroundColor Green -NoNewline; Write-Host "Carpetas de cache renombradas"

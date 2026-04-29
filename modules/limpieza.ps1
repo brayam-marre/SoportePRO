@@ -31,7 +31,12 @@ function Invoke-Limpieza {
     $totalFreed += Clear-Dir -Path "$env:LOCALAPPDATA\Temp"               -Label "Temp de AppData Local"
     $totalFreed += Clear-Dir -Path "$env:LOCALAPPDATA\Microsoft\Windows\INetCache" -Label "Cache de Internet Explorer / Edge"
     $totalFreed += Clear-Dir -Path "$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Cache" -Label "Cache Google Chrome"
-    $totalFreed += Clear-Dir -Path "$env:LOCALAPPDATA\Mozilla\Firefox\Profiles" -Label "Cache Mozilla Firefox"
+    $ffProfiles = "$env:LOCALAPPDATA\Mozilla\Firefox\Profiles"
+    if (Test-Path $ffProfiles) {
+        Get-ChildItem $ffProfiles -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+            $totalFreed += Clear-Dir -Path "$($_.FullName)\cache2" -Label "Cache Mozilla Firefox"
+        }
+    }
 
     # DNS
     Write-Host "  [  OK  ] " -ForegroundColor Green -NoNewline

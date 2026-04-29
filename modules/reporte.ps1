@@ -81,8 +81,9 @@ function Invoke-Reporte {
     $hotfixText = ($hotfixes | ForEach-Object { "  $($_.HotFixID) - $($_.InstalledOn.ToString('dd/MM/yyyy'))" }) -join "`n"
 
     $usersText = ($localUsers | ForEach-Object {
-        $isAdmin = ($adminUsers | Where-Object { $_.Name -like "*$($_.Name)" }).Count -gt 0
-        "  $($_.Name.PadRight(25)) Habilitado: $($_.Enabled)  Admin: $isAdmin"
+        $u       = $_
+        $isAdmin = ($adminUsers | Where-Object { $_.Name -like "*$($u.Name)" }).Count -gt 0
+        "  $($u.Name.PadRight(25)) Habilitado: $($u.Enabled)  Admin: $isAdmin"
     }) -join "`n"
 
     $portsText = ($openPorts | Select-Object -First 20 | ForEach-Object {

@@ -186,13 +186,13 @@ function Get-AnalisisEquipo {
     $cpuGen = 0; $cpuBrand = ""
     if ($cpuName -match 'Intel') {
         $cpuBrand = "Intel"
-        if    ($cpuName -match 'Core.*i[3579]-(\d{4,5})')   { $cpuGen = [int]($Matches[1].Substring(0,1)) }
-        elseif($cpuName -match 'Core.*i[3579]-(\d{2})\d{2}') { $cpuGen = [int]$Matches[1] }
-        elseif($cpuName -match '12th|13th|14th')             { $cpuGen = 13 }
-        elseif($cpuName -match '11th')                        { $cpuGen = 11 }
-        elseif($cpuName -match '10th')                        { $cpuGen = 10 }
-        elseif($cpuName -match 'Core 2')                      { $cpuGen = 1 }
-        elseif($cpuName -match 'Pentium|Celeron|Atom')        { $cpuGen = 2 }
+        if    ($cpuName -match '12th|13th|14th')              { $cpuGen = 13 }
+        elseif($cpuName -match '11th')                         { $cpuGen = 11 }
+        elseif($cpuName -match '10th')                         { $cpuGen = 10 }
+        elseif($cpuName -match 'Core.*i[3579]-(\d{2})\d{3}')  { $cpuGen = [int]$Matches[1] }
+        elseif($cpuName -match 'Core.*i[3579]-(\d)\d{3}')     { $cpuGen = [int]$Matches[1] }
+        elseif($cpuName -match 'Core 2')                       { $cpuGen = 1 }
+        elseif($cpuName -match 'Pentium|Celeron|Atom')         { $cpuGen = 2 }
     } elseif ($cpuName -match 'AMD') {
         $cpuBrand = "AMD"
         if    ($cpuName -match 'Ryzen.*[579].*7[0-9]{3}')    { $cpuGen = 12 }

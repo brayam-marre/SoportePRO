@@ -278,11 +278,14 @@ function Show-SuspiciousStartup {
         $key = $_
         Get-ItemProperty $key -ErrorAction SilentlyContinue | ForEach-Object {
             $_.PSObject.Properties | Where-Object { $_.Name -notlike 'PS*' } | ForEach-Object {
+                $entry       = $_
+                $entryValue  = $entry.Value
+                $isSuspicious = ($suspiciousPaths | Where-Object { $entryValue -ilike "*$_*" }).Count -gt 0
                 [PSCustomObject]@{
-                    Name  = $_.Name
-                    Value = $_.Value
-                    Scope = if ($key -like 'HKLM*') { 'Sistema' } else { 'Usuario' }
-                    Suspicious = ($suspiciousPaths | Where-Object { $_.Value -ilike "*$_*" }).Count -gt 0
+                    Name       = $entry.Name
+                    Value      = $entry.Value
+                    Scope      = if ($key -like 'HKLM*') { 'Sistema' } else { 'Usuario' }
+                    Suspicious = $isSuspicious
                 }
             }
         }
